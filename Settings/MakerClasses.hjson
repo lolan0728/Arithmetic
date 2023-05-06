@@ -1,0 +1,29 @@
+{
+  "QuestionsMaker": [
+    {
+      "name": "ADD",
+      "module": "Logic.AddQuestionsMaker",
+      "class": "AddQuestionsMaker"
+    },
+    {
+      "name": "SUB",
+      "module": "Logic.SubQuestionsMaker",
+      "class": "SubQuestionsMaker"
+    },
+    {
+      "name": "MULTI",
+      "module": "Logic.MultiQuestionsMaker",
+      "class": "MultiQuestionsMaker"
+    },
+    {
+      "name": "DIV",
+      "module": "Logic.DivQuestionsMaker",
+      "class": "DivQuestionsMaker"
+    }
+    {
+      "name": "MIXED",
+      "module": "Logic.MixedOPQuestionMaker",
+      "class": "MixedOPQuestionMaker"
+    }
+  ]
+}
