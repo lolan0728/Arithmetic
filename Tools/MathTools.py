@@ -1,7 +1,7 @@
 # *********************************************
 # * @Date: 2023-04-28 20:15:34
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-03 20:33:04
+# * @LastEditTime: 2023-05-06 16:22:13
 # * @FilePath: /Arithmetic/Tools/MathTools.py
 # * @Description: 数字に関するツールクラス
 # *********************************************

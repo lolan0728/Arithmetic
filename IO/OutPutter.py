@@ -1,7 +1,7 @@
 # *********************************************
 # * @Date: 2023-04-28 21:08:27
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-05 10:30:04
+# * @LastEditTime: 2023-05-06 16:25:12
 # * @FilePath: /Arithmetic/IO/OutPutter.py
 # * @Description: 数式出力
 # *********************************************

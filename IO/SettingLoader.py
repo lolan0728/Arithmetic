@@ -1,7 +1,7 @@
 # *********************************************
 # * @Date: 2023-05-04 13:39:53
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-05 10:50:24
+# * @LastEditTime: 2023-05-06 16:24:28
 # * @FilePath: /Arithmetic/IO/SettingLoader.py
 # * @Description: Settingファイルを読み込む
 # *********************************************
@@ -11,8 +11,8 @@ import hjson
 class SettingLoader:
 
     # 数式作成クラス
-    MAKERCLASSES = {
-        'PATH': 'Settings/MakerClasses.hjson',
+    MAKER_CLASSES = {
+        'PATH': 'Settings/LogicClasses.hjson',
         'BLOCK': 'QuestionsMaker'
     }
 
@@ -40,9 +40,9 @@ class SettingLoader:
     def loadMakerClasses(cls) -> list:
         try:
             # ファイルのパス
-            path = cls.MAKERCLASSES['PATH']
+            path = cls.MAKER_CLASSES['PATH']
             # 情報塊
-            block = cls.MAKERCLASSES['BLOCK']
+            block = cls.MAKER_CLASSES['BLOCK']
             return cls.loadHJSON(path, block)
         except Exception:
             raise
@@ -51,7 +51,6 @@ class SettingLoader:
 # テスト用
 if __name__ == '__main__':
     try:
-        # dic = SettingLoader.loadHJSON('Constants/MakerClasses.hjson', 'QuestionsMaker')
         dic = SettingLoader.loadMakerClasses()
         for item in dic:
             print(item["name"])

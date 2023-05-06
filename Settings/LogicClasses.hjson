@@ -1,0 +1,9 @@
+{
+  "QuestionsMaker": [
+    {
+      "name": "TEMPLATE",
+      "module": "Logic.TemplateQuestionMaker",
+      "class": "TemplateQuestionMaker"
+    }
+  ]
+}

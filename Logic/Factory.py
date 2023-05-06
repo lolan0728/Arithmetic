@@ -1,13 +1,13 @@
 # *********************************************
 # * @Date: 2023-05-03 21:07:48
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-05 17:35:02
+# * @LastEditTime: 2023-05-06 16:12:17
 # * @FilePath: /Arithmetic/Logic/Factory.py
 # * @Description:
 # *********************************************
 import importlib
 from Interface.AbsQuestionMaker import AbsQuestionMaker
-from Logic.MixedOPQuestionMaker import TemplateEnum
+from Logic.TemplateQuestionMaker import TemplateEnum
 from IO.SettingLoader import SettingLoader
 
 

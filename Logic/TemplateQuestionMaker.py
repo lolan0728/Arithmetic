@@ -1,9 +1,9 @@
 # *********************************************
 # * @Date: 2023-05-03 20:47:08
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-06 13:44:27
-# * @FilePath: /Arithmetic/Logic/MixedOPQuestionMaker.py
-# * @Description:
+# * @LastEditTime: 2023-05-06 16:18:35
+# * @FilePath: /Arithmetic/Logic/TemplateQuestionMaker.py
+# * @Description: テンプレートより数式作成
 # *********************************************
 from enum import Enum
 from Interface.AbsQuestionMaker import AbsQuestionMaker
@@ -21,7 +21,7 @@ class TemplateEnum(Enum):
     TEMP3 = '{} + {} - {}'
 
 
-class MixedOPQuestionMaker(AbsQuestionMaker):
+class TemplateQuestionMaker(AbsQuestionMaker):
     def __init__(self) -> None:
         super().__init__()
 
@@ -69,7 +69,7 @@ class MixedOPQuestionMaker(AbsQuestionMaker):
 # テスト用
 if __name__ == "__main__":
     params = {'resRange': [0, 100], 'quantity': 50}
-    ins = MixedOPQuestionMaker()
+    ins = TemplateQuestionMaker()
     ins.setParams(**params)
     ins.makeQuestions(template=TemplateEnum.TEMP3, digits=[2, 1, 1])
     print(ins.answers)
