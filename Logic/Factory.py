@@ -1,13 +1,13 @@
 # *********************************************
 # * @Date: 2023-05-03 21:07:48
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-06 16:12:17
+# * @LastEditTime: 2023-05-06 21:39:40
 # * @FilePath: /Arithmetic/Logic/Factory.py
 # * @Description:
 # *********************************************
 import importlib
 from Interface.AbsQuestionMaker import AbsQuestionMaker
-from Logic.TemplateQuestionMaker import TemplateEnum
+from Logic.QuestionMaker import TemplateEnum
 from IO.SettingLoader import SettingLoader
 
 
@@ -18,8 +18,8 @@ class ClassFactory:
 
     # 传入子类的类型，获得实例
     @classmethod
-    def instance(cls, clsType):
-        return cls.__classDict[clsType]()
+    def instance(cls, clsType, *args, **kwargs):
+        return cls.__classDict[clsType](*args, **kwargs)
 
     # 子类注册函数
     @classmethod
@@ -38,8 +38,7 @@ class ClassFactory:
 # テスト用
 if __name__ == "__main__":
     ClassFactory.importMarkerClasses()
-    ins = ClassFactory.instance('MIXED')
-    params = {'ansRange': [0, 1000], 'quantity': 50}
-    ins.setParams(params)
-    ins.makeQuestions(template=TemplateEnum.TEMP2, digits=[2, 1, 1])
+    params = {'resRange': [0, 100], 'quantity': 50}
+    ins = ClassFactory.instance('TEMPLATE', **params)
+    ins.makeQuestions(template=TemplateEnum.TEMP_SIM_1, digits=[2, 1, 1])
     print(ins.answers)

@@ -1,0 +1,42 @@
+{
+  "Templates": [
+    {
+      "format": "{} + {}",
+      "level": "1",
+      "sample": "a+b",
+      "factors": [
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        },
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        }
+      ]
+    },
+    {
+      "format": "({} + {}) / ({} + {})",
+      "level": "7",
+      "sample": "(a+b)/(c+d)",
+      "factors": [
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        },
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        },
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        },
+        {
+          "allowOne": "True",
+          "allowZero": "False"
+        }
+      ]
+    }
+  ]
+}
