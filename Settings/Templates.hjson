@@ -1,42 +1,18 @@
 {
   "Templates": [
     {
+      "name": "simple1",
       "format": "{} + {}",
+      "numOfFactors": "2",
       "level": "1",
-      "sample": "a+b",
-      "factors": [
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        },
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        }
-      ]
+      "description": "a+b"
     },
     {
+      "name": "mixed1",
       "format": "({} + {}) / ({} + {})",
+      "numOfFactors": "4",
       "level": "7",
-      "sample": "(a+b)/(c+d)",
-      "factors": [
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        },
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        },
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        },
-        {
-          "allowOne": "True",
-          "allowZero": "False"
-        }
-      ]
+      "description": "(a+b)/(c+d)"
     }
   ]
 }

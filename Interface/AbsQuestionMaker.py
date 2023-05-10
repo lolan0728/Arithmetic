@@ -1,7 +1,7 @@
 # *********************************************
 # * @Date: 2023-04-26 15:18:33
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-05 19:54:53
+# * @LastEditTime: 2023-05-10 11:08:28
 # * @FilePath: /Arithmetic/Interface/AbsQuestionMaker.py
 # * @Description: アブストラクト
 # *********************************************
@@ -33,7 +33,7 @@ class AbsQuestionMaker(abc.ABC):
     # * @Date: 2023-04-30 17:21:15
     # *********************************************
     @abc.abstractmethod
-    def makeQuestions(self, *args, **kwargs) -> None:
+    def makeQuestion(self, *args, **kwargs) -> None:
         pass
 
     # *********************************************

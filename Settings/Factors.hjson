@@ -1,0 +1,52 @@
+{
+  "Factors": [
+    {
+      "name": "simple1",
+      "description": "a+b",
+      "elementList": [
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        }
+      ]
+    },
+    {
+      "name": "mixed1",
+      "description": "(a+b)/(c+d)",
+      "elementList": [
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "2",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        }
+      ]
+    }
+  ]
+}

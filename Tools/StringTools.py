@@ -1,7 +1,7 @@
 # *********************************************
 # * @Date: 2023-05-03 20:13:27
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-06 13:42:23
+# * @LastEditTime: 2023-05-09 10:45:29
 # * @FilePath: /Arithmetic/Tools/StringTools.py
 # * @Description: 文字列に関するツールクラス
 # *********************************************
@@ -45,7 +45,7 @@ class StringTools:
     # *********************************************
     @classmethod
     def getFormulaMixed(cls, template: str, numList: list) -> str:
-        formula = template.value.format(*numList) + OPR.BLANK.value + \
+        formula = template.format(*numList) + OPR.BLANK.value + \
                                         OPR.EQUALS.value + OPR.BLANK.value
         return cls.__formatFormula(formula)
 

@@ -1,11 +1,14 @@
 # *********************************************
 # * @Date: 2023-05-03 20:47:08
 # * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-06 21:37:13
-# * @FilePath: /Arithmetic/Logic/QuestionMaker.py
+# * @LastEditTime: 2023-05-10 11:09:25
+# * @FilePath: /Arithmetic/Logic/IntQuestionMaker.py
 # * @Description: テンプレートより数式作成
 # *********************************************
+import random
 from enum import Enum
+from Entity.Factors import Factor
+from Entity.Templates import Template
 from Interface.AbsQuestionMaker import AbsQuestionMaker
 from Tools.MathTools import MathTools
 from Tools.StringTools import StringTools
@@ -59,7 +62,7 @@ class TemplateEnum(Enum):
     TEMP_MIX_16 = '({} - {} - {}) / {}'
 
 
-class QuestionMaker(AbsQuestionMaker):
+class IntQuestionMaker(AbsQuestionMaker):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__()
         self.setParams(*args, **kwargs)
@@ -69,30 +72,47 @@ class QuestionMaker(AbsQuestionMaker):
     # * @param {int} quantity: 作成する数式の数量
     # *********************************************
     def setParams(self, *args, **kwargs) -> None:
-        self.resRange = kwargs['resRange']
-        self.quantity = kwargs['quantity']
+        self.resRange: list[int] = kwargs['resRange']
+        self.quantity: int = kwargs['quantity']
 
     # *********************************************
     # * @param {TemplateEnum} template: 数式のテンプレート
     # * @param {list[int]} digits: 各計算因子の桁数
     # *********************************************
-    def makeQuestions(self, *args, **kwargs) -> None:
-        template = kwargs['template']
-        digits = kwargs['digits']
+    def makeQuestion(self, *args, **kwargs) -> None:
+        template: Template = kwargs['template']
+        factor: Factor = kwargs['factor']
         while True:
             # 各計算因子の生成
-            lstNum = [MathTools.getRandomInt(d) for d in digits]
+            lstNum = [MathTools.getFactor(f) for f in factor.elementList]
             # 結果計算
-            result = eval(template.value.format(*lstNum))
+            try:
+                result = eval(template.format.format(*lstNum))
+            except ZeroDivisionError:
+                continue
             # 結果は範囲内の場合、数式を作成する
             if self.resRange[0] < result < self.resRange[1] and result % 1 == 0:
                 # 数式の作成
-                formula = self.getFormula(template=template, numList=lstNum)
-                self.questions.append(formula)
-                self.answers.append(formula + str(int(result)))
-                # 所定数量に達したらループから脱出
-                if len(self.questions) == self.quantity:
-                    return None
+                formula = self.getFormula(format=template.format,
+                                          numList=lstNum)
+                answer = formula + str(int(result))
+                return formula, answer
+                # self.questions.append(formula)
+                # self.answers.append(formula + str(int(result)))
+                # # 所定数量に達したらループから脱出
+                # if len(self.questions) == self.quantity:
+                #     return None
+    
+    def getQuestions(self, *args, **kwargs):
+        lstTemplate: list[Template] = kwargs['templates']
+        lstFactor: list[Factor] = kwargs['factors']
+        for _ in range(self.quantity):
+            template = random.choice(lstTemplate)
+            factor = random.choice([f for f in lstFactor if f.name == template.name])
+            param = {'template': template, 'factor': factor}
+            formula, answer = self.makeQuestion(**param)
+            self.questions.append(formula)
+            self.answers.append(answer)
 
     # *********************************************
     # * @param {TemplateEnum} template: 数式のテンプレート
@@ -100,15 +120,49 @@ class QuestionMaker(AbsQuestionMaker):
     # * @return {str}: 数式文字列
     # *********************************************
     def getFormula(self, *args, **kwargs) -> str:
-        template = kwargs['template']
-        lstNum = kwargs['numList']
-        return StringTools.getFormulaMixed(template, lstNum)
+        format: str = kwargs['format']
+        lstNum: list[int] = kwargs['numList']
+        return StringTools.getFormulaMixed(format, lstNum)
 
 
 # テスト用
 if __name__ == "__main__":
-    params = {'resRange': [0, 100], 'quantity': 50}
-    ins = QuestionMaker(**params)
-    # ins.setParams(**params)
-    ins.makeQuestions(template=TemplateEnum.TEMP_ADV_2, digits=[2, 1])
-    print(ins.answers)
+    pass
+    # qParams = {'resRange': [0, 100], 'quantity': 500}
+    # ins = IntQuestionMaker(**qParams)
+    # tParams = {
+    #     'name': '',
+    #     'format': '({} + {}) / {}',
+    #     'numOfFactors': '3',
+    #     'level': '7',
+    #     'description': '(a+b)/c'
+    # }
+    # t = Template(**tParams)
+    # fParams = {
+    #   "name": "simple1",
+    #   "description": "a+b",
+    #   "factorList": [
+    #     {
+    #       "intDigits": "2",
+    #       "decimalPlaces": "0",
+    #       "allowZero": "False",
+    #       "allowOne": "True"
+    #     },
+    #     {
+    #       "intDigits": "2",
+    #       "decimalPlaces": "0",
+    #       "allowZero": "False",
+    #       "allowOne": "True"
+    #     },
+    #     {
+    #       "intDigits": "2",
+    #       "decimalPlaces": "0",
+    #       "allowZero": "False",
+    #       "allowOne": "True"
+    #     }
+    #   ]
+    # }
+    # lstFactor = []
+    # lstFactor.append(Factors(**fParams))
+    # ins.makeQuestions(template=t, factors=lstFactor)
+    # print(ins.answers)

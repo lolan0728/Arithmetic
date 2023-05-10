@@ -5,5 +5,12 @@
       "module": "Logic.QuestionMaker",
       "class": "QuestionMaker"
     }
+  ],
+  "Test": [
+    {
+      "name": "testname",
+      "module": "testmodule",
+      "class": "testclass"
+    }
   ]
 }
