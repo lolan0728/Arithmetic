@@ -1,15 +1,14 @@
-# *********************************************
-# * @Date: 2023-04-19 12:32:12
-# * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-10 13:55:52
-# * @FilePath: /Arithmetic/Bus.py
-# * @Description:
-# *********************************************
-import random
-from IO.SettingLoader import SettingLoader
-from IO.OutPutter import OutputDocx
+# & *********************************************
+# & @Date: 2023-04-19 12:32:12
+# & @LastEditors: lolan0728 vampire.lolan@outlook.com
+# & @LastEditTime: 2023-05-11 10:55:17
+# & @FilePath: /Arithmetic/Bus.py
+# & @Description: 
+# & *********************************************
 from Entity import Templates, Factors
 from Logic.IntQuestionMaker import IntQuestionMaker
+from IO.SettingLoader import SettingLoader
+from IO.OutPutter import OutputDocx
 
 
 class Bus:
@@ -29,17 +28,25 @@ class Bus:
 
     def getIntQuestionsByLevel(self, *args, **kwargs):
         lstLevel: list[int] = kwargs['levels']
+        lstTemplate = self.templateCollection.getTemplateByLevels(lstLevel)
+        return self.__getIntQuestions(templates=lstTemplate, **kwargs)
+
+    def getIntQuestionsByNames(self, *args, **kwargs):
+        lstName: list[str] = kwargs['names']
+        lstTemplate = self.templateCollection.getTemplateByNames(lstName)
+        return self.__getIntQuestions(templates=lstTemplate, **kwargs)
+
+    def __getIntQuestions(self, *args, **kwargs):
         resRange: list[int] = kwargs['resRange']
         quantity: int = kwargs['quantity']
-        paramIQM = {'resRange': resRange, 'quantity': quantity}
-        insIQM = IntQuestionMaker(**paramIQM)
-        lstTemplate = self.templateCollection.getTemplateByLevels(lstLevel)
+        lstTemplate: list[Templates.Template] = kwargs['templates']
         lstFactor = self.factorCollection.getFactorByNames(
             [t.name for t in lstTemplate])
+        paramIQM = {'resRange': resRange, 'quantity': quantity}
         paramQ = {'templates': lstTemplate, 'factors': lstFactor}
+        insIQM = IntQuestionMaker(**paramIQM)
         insIQM.getQuestions(**paramQ)
-        for a in insIQM.answers:
-            print(a)
+        return insIQM.questions, insIQM.answers
 
 
 # テスト用
@@ -47,9 +54,10 @@ if __name__ == "__main__":
     bus = Bus()
     bus.loadTemplates()
     bus.loadFactors()
-    bus.getIntQuestionsByLevel(**{
-        'levels': [1, 1],
+    lsrQ, lstA = bus.getIntQuestionsByNames(**{
+        'names': ['simple1', 'simple1'],
         'resRange': [0, 100],
         'quantity': 50
     })
+    print(lstA)
     # print(bus)

@@ -1,76 +1,56 @@
-# *********************************************
-# * @Date: 2023-05-04 13:39:53
-# * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-09 16:51:21
-# * @FilePath: /Arithmetic/IO/SettingLoader.py
-# * @Description: Settingファイルを読み込む
-# *********************************************
+# & *********************************************
+# & @Date: 2023-05-04 13:39:53
+# & @LastEditors: lolan0728 vampire.lolan@outlook.com
+# & @LastEditTime: 2023-05-11 16:37:05
+# & @FilePath: /Arithmetic/IO/SettingLoader.py
+# & @Description: 設定ファイルから情報読込
+# & *********************************************
 import hjson
 import os
 
 
 class SettingLoader:
 
-    # 数式作成クラス
+    # ロジッククラス
     MAKER_FILE = {'FILE': 'LogicClasses.hjson', 'BLOCK': 'QuestionsMaker'}
-    #
+    # テンプレート定義ファイル
     TEMPLATE_FILE = {'FILE': 'Templates.hjson', 'BLOCK': 'Templates'}
-    #
+    # Factor定義ファイル
     FACTOR_FILE = {'FILE': 'Factors.hjson', 'BLOCK': 'Factors'}
 
     # *********************************************
-    # * @description: hjson(json)ファイルから情報読込
-    # * @param {str} path: ファイルのパス
-    # * @param {str} block:　情報塊
-    # * @return {*}:　読み込んだ情報のリスト
-    # * @Date: 2023-05-04 17:14:38
-    # *********************************************
-    @classmethod
-    def loadHJSON(cls, path: str, block: str) -> list:
-        try:
-            with open(path) as j:
-                return hjson.load(j)[block]
-        except Exception:
-            raise
-
-    # *********************************************
     # * @description: 数式作成クラス情報読込
-    # * @return {*}: クラス情報のリスト
-    # * @Date: 2023-05-04 20:39:33
+    # * @return {list[str]}: クラス情報のリスト
     # *********************************************
     @classmethod
-    def loadMakerClasses(cls) -> list:
+    def loadMakerClasses(cls) -> list[str]:
         try:
-            # ファイルのパス
+            # パス
             path = os.path.join('Settings', cls.MAKER_FILE['FILE'])
-            # 情報ブロック
+            # ブロック
             block = cls.MAKER_FILE['BLOCK']
             return cls.loadHJSON(path, block)
         except Exception:
             raise
 
     # *********************************************
-    # * @description:
-    # * @param {*} cls
-    # * @return {*}
-    # * @Date: 2023-05-09 11:15:36
+    # * @description: テンプレート定義ファイル読込
+    # * @return {list}: テンプレート情報
     # *********************************************
     @classmethod
     def loadTemplates(cls) -> list:
         try:
-            # ファイルのパス
+            # パス
             path = os.path.join('Settings', cls.TEMPLATE_FILE['FILE'])
-            # 情報ブロック
+            # ブロック
             block = cls.TEMPLATE_FILE['BLOCK']
             return cls.loadHJSON(path, block)
         except Exception:
             raise
 
     # *********************************************
-    # * @description:
-    # * @param {*} cls
-    # * @return {*}
-    # * @Date: 2023-05-09 11:15:36
+    # * @description: Factor定義ファイル読込
+    # * @return {list}: Factor情報
     # *********************************************
     @classmethod
     def loadFactors(cls) -> list:
@@ -80,6 +60,20 @@ class SettingLoader:
             # 情報ブロック
             block = cls.FACTOR_FILE['BLOCK']
             return cls.loadHJSON(path, block)
+        except Exception:
+            raise
+
+    # *********************************************
+    # * @description: hjson(json)ファイルから情報読込
+    # * @param {str} path: ファイルのパス
+    # * @param {str} block:　ブロック
+    # * @return {list[str]}:　情報リスト
+    # *********************************************
+    @classmethod
+    def loadHJSON(cls, path: str, block: str) -> list[str]:
+        try:
+            with open(path) as j:
+                return hjson.load(j)[block]
         except Exception:
             raise
 

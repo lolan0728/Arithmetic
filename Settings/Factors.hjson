@@ -3,7 +3,7 @@
     {
       "name": "simple1",
       "description": "a+b",
-      "elementList": [
+      "elements": [
         {
           "intDigits": "2",
           "decimalPlaces": "0",
@@ -21,7 +21,7 @@
     {
       "name": "mixed1",
       "description": "(a+b)/(c+d)",
-      "elementList": [
+      "elements": [
         {
           "intDigits": "2",
           "decimalPlaces": "0",
@@ -29,19 +29,49 @@
           "allowOne": "True"
         },
         {
-          "intDigits": "2",
+          "intDigits": "1",
           "decimalPlaces": "0",
           "allowZero": "False",
           "allowOne": "True"
         },
         {
-          "intDigits": "2",
+          "intDigits": "1",
           "decimalPlaces": "0",
           "allowZero": "False",
           "allowOne": "True"
         },
         {
-          "intDigits": "2",
+          "intDigits": "1",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        }
+      ]
+    },
+    {
+      "name": "mixed1",
+      "description": "(a+b)/(c+d)",
+      "elements": [
+        {
+          "intDigits": "1",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "1",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "1",
+          "decimalPlaces": "0",
+          "allowZero": "False",
+          "allowOne": "True"
+        },
+        {
+          "intDigits": "1",
           "decimalPlaces": "0",
           "allowZero": "False",
           "allowOne": "True"
