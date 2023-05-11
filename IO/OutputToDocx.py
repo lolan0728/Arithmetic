@@ -1,10 +1,10 @@
-# *********************************************
-# * @Date: 2023-04-28 21:08:27
-# * @LastEditors: lolan0728 vampire.lolan@outlook.com
-# * @LastEditTime: 2023-05-06 16:25:12
-# * @FilePath: /Arithmetic/IO/OutPutter.py
-# * @Description: 数式出力
-# *********************************************
+# & *********************************************
+# & @Date: 2023-04-28 21:08:27
+# & @LastEditors: lolan0728 vampire.lolan@outlook.com
+# & @LastEditTime: 2023-05-11 21:26:58
+# & @FilePath: /Arithmetic/IO/OutputToDocx.py
+# & @Description: Wordファイルに出力
+# & *********************************************
 import os
 import datetime
 from docx import Document
@@ -13,38 +13,29 @@ from docx.oxml.ns import qn
 from docx.shared import Cm, Pt
 
 
-# *********************************************
-# * @description: 数式をWordファイルに出力
-# * @Date: 2023-05-05 10:10:57
-# *********************************************
-class OutputDocx:
-    def __init__(self, params: dict = None) -> None:
-        self.setParams(params)
+class OutputToDocx:
 
     # *********************************************
-    # * @description: パラメーター設定
-    # * @param {dict} params: パラメーターDictionary
-    # * @return {*}: None
-    # * @Date: 2023-05-05 10:16:20
+    # * @description: 初期化
+    # * @param {str} title: ファイルのタイトル
+    # * @param {str} savePath: 保存パス
+    # * @param {str} date: 日付
     # *********************************************
-    def setParams(self, params: dict) -> None:
-        if params != None:
-            # タイトル
-            self.title = params['title']
-            # 保存パス
-            self.savePath = params['savePath']
-            # 日付、設定しない場合当日を利用
-            self.date = datetime.date.today().strftime("%Y/%m/%d") \
-                if params['date'] is None else params['date']
+    def __init__(self, title: str, savePath: str, date: str = None) -> None:
+        # タイトル
+        self.title = title
+        # 保存パス
+        self.savePath = savePath
+        # 日付、設定しない場合当日を利用
+        self.date = datetime.date.today().strftime("%Y/%m/%d") \
+            if date is None else date
 
     # *********************************************
-    # * @description: Wordファイル出力
+    # * @description: Wordファイルに出力
     # * @param {str} filename: ファイル名
-    # * @param {list} records: 数式リスト
-    # * @return {*}: None
-    # * @Date: 2023-05-05 10:26:02
+    # * @param {list[str]} records: 数式リスト
     # *********************************************
-    def output(self, filename: str, records: list) -> None:
+    def output(self, filename: str, records: list[str]) -> None:
         document = Document()
         section = document.sections[0]
 
@@ -74,7 +65,8 @@ class OutputDocx:
         # 数式部分、１行４列
         table = document.add_table(rows=0, cols=4)
         table.autofit = True
-        for a, b, c, d in records:
+        lstRecord = self._split_4_25(records)
+        for a, b, c, d in lstRecord[0]:
             row = table.add_row()
             row_cells = row.cells
 
@@ -97,6 +89,24 @@ class OutputDocx:
         path = os.path.join(self.savePath, filename)
         document.save(path)
 
+    def _split_4_25(self, records):
+        result:list[str] = []
+        while len(records) > 0:
+            blockSize = 50 if len(records) > 99 else len(records)
+            ls = records[:blockSize]
+            records = records[blockSize:]
+            rd = []
+            while len(ls) > 0:
+                rs = 4 if len(ls) > 3 else len(ls)
+                row = ls[:rs]
+                if rs < 4:
+                    for x in range(4-rs):
+                        row.append('')
+                rd.append(row)
+                ls = ls[rs:]
+            result.append(rd)
+        return result
+
 
 # テスト用
 if __name__ == "__main__":
@@ -107,5 +117,5 @@ if __name__ == "__main__":
         'savePath': '//Users//lolan//Desktop//Arithmetic//',
         'date': None
     }
-    ins = OutputDocx(params)
+    ins = OutputToDocx(**params)
     ins.output('test.docx', records)

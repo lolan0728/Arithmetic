@@ -1,14 +1,14 @@
 # & *********************************************
 # & @Date: 2023-04-19 12:32:12
 # & @LastEditors: lolan0728 vampire.lolan@outlook.com
-# & @LastEditTime: 2023-05-11 19:29:05
+# & @LastEditTime: 2023-05-11 21:27:56
 # & @FilePath: /Arithmetic/Bus.py
 # & @Description:
 # & *********************************************
 from Entity import Templates, Factors
 from Logic.IntQuestionMaker import IntQuestionMaker
 from IO.SettingLoader import SettingLoader
-from IO.OutPutter import OutputDocx
+from IO.OutputToDocx import OutputToDocx
 
 
 class Bus:
@@ -90,7 +90,14 @@ if __name__ == "__main__":
     lsrQ, lstA = bus.getIntQuestionsByNames(**{
         'names': ['simple1', 'simple1'],
         'resRange': [0, 100],
-        'quantity': 50
+        'quantity': 100
     })
+    params = {
+        'title': "Harvey's Math Exercises",
+        'savePath': '//Users//lolan//Desktop//Arithmetic//',
+        'date': None
+    }
+    outPutter = OutputToDocx(**params)
+    outPutter.output('questions.docx', lstA)
     print(lstA)
     # print(bus)
