@@ -1,7 +1,7 @@
 # & *********************************************
 # & @Date: 2023-05-03 20:47:08
 # & @LastEditors: lolan0728 vampire.lolan@outlook.com
-# & @LastEditTime: 2023-05-11 15:48:38
+# & @LastEditTime: 2023-05-11 19:28:21
 # & @FilePath: /Arithmetic/Logic/IntQuestionMaker.py
 # & @Description:
 # & *********************************************
@@ -44,7 +44,7 @@ class IntQuestionMaker(AbsQuestionMaker):
         self.quantity = quantity
 
     # *********************************************
-    # * @description: 複数数式の作成
+    # * @description: 複数数式作成
     # * @param {list[Template]} templates: テンプレートリスト
     # * @param {list[Factor]} factors: Factorリスト
     # *********************************************
@@ -81,7 +81,7 @@ class IntQuestionMaker(AbsQuestionMaker):
             # 結果は範囲内＋整数の場合、数式を作成する
             if self.resRange[0] < result < self.resRange[1] and result % 1 == 0:
                 # 数式
-                formula = self.getFormula(format=template.format, nums=lstNum)
+                formula = self.getFormula(template.format, lstNum)
                 # 結果つき数式
                 answer = formula + str(int(result))
                 return formula, answer
