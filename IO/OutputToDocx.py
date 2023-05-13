@@ -1,7 +1,7 @@
 # & *********************************************
 # & @Date: 2023-04-28 21:08:27
 # & @LastEditors: lolan0728 vampire.lolan@outlook.com
-# & @LastEditTime: 2023-05-11 21:26:58
+# & @LastEditTime: 2023-05-12 22:02:31
 # & @FilePath: /Arithmetic/IO/OutputToDocx.py
 # & @Description: Wordファイルに出力
 # & *********************************************
@@ -35,7 +35,8 @@ class OutputToDocx:
     # * @param {str} filename: ファイル名
     # * @param {list[str]} records: 数式リスト
     # *********************************************
-    def output(self, filename: str, records: list[str]) -> None:
+    def output(self, filename: str, pageSize: int,
+               formulas: list[str]) -> None:
         document = Document()
         section = document.sections[0]
 
@@ -65,8 +66,8 @@ class OutputToDocx:
         # 数式部分、１行４列
         table = document.add_table(rows=0, cols=4)
         table.autofit = True
-        lstRecord = self._split_4_25(records)
-        for a, b, c, d in lstRecord[0]:
+        lstFormula = self.__splitTo4Col(formulas, pageSize)
+        for a, b, c, d in lstFormula[0]:
             row = table.add_row()
             row_cells = row.cells
 
@@ -89,18 +90,26 @@ class OutputToDocx:
         path = os.path.join(self.savePath, filename)
         document.save(path)
 
-    def _split_4_25(self, records):
-        result:list[str] = []
-        while len(records) > 0:
-            blockSize = 50 if len(records) > 99 else len(records)
-            ls = records[:blockSize]
-            records = records[blockSize:]
+    # *********************************************
+    # * @description: 数式を1行4列に分割
+    # * @param {list[str])} formulas: 数式文字列リスト
+    # * @param {int} pageSize: 1ページの数式数量
+    # * @return {list[list[str]]}: 分割したリスト
+    # *********************************************
+    def __splitTo4Col(self,
+                      formulas: list[str],
+                      pageSize: int = 100) -> list[list[str]]:
+        result: list[list[str]] = []
+        while len(formulas) > 0:
+            pageSize = pageSize if len(formulas) >= pageSize else len(formulas)
+            ls = formulas[:pageSize]
+            formulas = formulas[pageSize:]
             rd = []
             while len(ls) > 0:
                 rs = 4 if len(ls) > 3 else len(ls)
                 row = ls[:rs]
                 if rs < 4:
-                    for x in range(4-rs):
+                    for _ in range(4 - rs):
                         row.append('')
                 rd.append(row)
                 ls = ls[rs:]
@@ -118,4 +127,4 @@ if __name__ == "__main__":
         'date': None
     }
     ins = OutputToDocx(**params)
-    ins.output('test.docx', records)
+    ins.output('test.docx', 100, records)

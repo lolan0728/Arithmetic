@@ -1,7 +1,7 @@
 # & *********************************************
 # & @Date: 2023-04-19 12:32:12
 # & @LastEditors: lolan0728 vampire.lolan@outlook.com
-# & @LastEditTime: 2023-05-11 21:27:56
+# & @LastEditTime: 2023-05-12 21:55:38
 # & @FilePath: /Arithmetic/Bus.py
 # & @Description:
 # & *********************************************
@@ -12,11 +12,14 @@ from IO.OutputToDocx import OutputToDocx
 
 
 class Bus:
+
+    # テンプレートセット
+    templateCollection = Templates.TemplateCollection()
+    # Factorセット
+    factorCollection = Factors.FactorCollection()
+
     def __init__(self) -> None:
-        # テンプレートセット
-        self.templateCollection = Templates.TemplateCollection()
-        # Factorセット
-        self.factorCollection = Factors.FactorCollection()
+        pass
 
     # *********************************************
     # * @description: 定義ファイルからテンプレート情報読込
@@ -98,6 +101,6 @@ if __name__ == "__main__":
         'date': None
     }
     outPutter = OutputToDocx(**params)
-    outPutter.output('questions.docx', lstA)
+    outPutter.output('questions.docx', 50, lstA)
     print(lstA)
     # print(bus)

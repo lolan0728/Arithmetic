@@ -1,10 +1,11 @@
 # & *********************************************
 # & @Date: 2023-05-03 20:47:08
 # & @LastEditors: lolan0728 vampire.lolan@outlook.com
-# & @LastEditTime: 2023-05-11 19:28:21
+# & @LastEditTime: 2023-05-12 21:54:38
 # & @FilePath: /Arithmetic/Logic/IntQuestionMaker.py
 # & @Description:
 # & *********************************************
+import copy
 import random
 from Entity.Factors import Factor
 from Entity.Templates import Template
@@ -18,6 +19,11 @@ from Tools.StringTools import StringTools
 # *********************************************
 class IntQuestionMaker(AbsQuestionMaker):
 
+    # 数式
+    _questions = []
+    # 結果つき数式
+    _answers = []
+
     # *********************************************
     # * @description: 初期化
     # * @param {list[int]} resRange: 結果の範囲
@@ -27,10 +33,6 @@ class IntQuestionMaker(AbsQuestionMaker):
                  resRange: list[int] = None,
                  quantity: int = None) -> None:
         super().__init__()
-        # 数式
-        self.__questions = []
-        # 結果つき数式
-        self.__answers = []
         # パラメーター設定
         self.setParams(resRange, quantity)
 
@@ -56,10 +58,9 @@ class IntQuestionMaker(AbsQuestionMaker):
             # ランダムにテンプレートに適用Factor1つ取得
             factor = random.choice(
                 [f for f in factors if f.name == template.name])
-            param = {'template': template, 'factor': factor}
-            formula, answer = self.__createQuestion(**param)
-            self.__questions.append(formula)
-            self.__answers.append(answer)
+            formula, answer = self.__createQuestion(template, factor)
+            self._questions.append(formula)
+            self._answers.append(answer)
 
     # *********************************************
     # * @description: 数式作成
@@ -72,8 +73,8 @@ class IntQuestionMaker(AbsQuestionMaker):
         while True:
             # 各数字作成
             lstNum = [MathTools.getElement(f) for f in factor.elementList]
-            # 結果計算
             try:
+                # 計算
                 result = eval(template.format.format(*lstNum))
             # ゼロ除算エラーキャッチ
             except ZeroDivisionError:
@@ -96,23 +97,26 @@ class IntQuestionMaker(AbsQuestionMaker):
 
     # *********************************************
     # * @description: 数式リスト取得
-    # * @return {list[str]}: 数式リスト
+    # * @return {list[str]}: 数式リスト(DeepCopy)
     # * @comments: プロパティメソード
     # *********************************************
     @property
     def questions(self):
-        return self.__questions
+        return copy.deepcopy(self._questions)
 
     # *********************************************
     # * @description: 結果つき数式リスト取得
-    # * @return {list[str]}: 結果つき数式リスト
+    # * @return {list[str]}: 結果つき数式リスト(DeepCopy)
     # * @comments: プロパティメソード
     # *********************************************
     @property
     def answers(self):
-        return self.__answers
+        return copy.deepcopy(self._answers)
 
 
 # テスト用
 if __name__ == "__main__":
-    pass
+    ins = IntQuestionMaker()
+    lst = ins.questions
+    lst.append('aaa')
+    print(ins._questions)

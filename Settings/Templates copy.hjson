@@ -1,0 +1,11 @@
+{
+  "fileParams": {
+    "userName": "Harvey",
+    "title": "{}'s Math Exercises",
+  },
+  "outPutParams": {
+    "savePath": "//Users//lolan//Desktop//Arithmetic//",
+    "QuestionFileName": "Questions_{}",
+    "AnswerFileName": "Answers_{}"
+  }                                            
+}
