@@ -3,5 +3,6 @@ Enums/__pycache__/*.*
 Interface/__pycache__/*.*
 IO/__pycache__/*.*
 Logic/__pycache__/*.*
+Logic/backup/*.*
 Tools/__pycache__/*.*
 .DS_Store
